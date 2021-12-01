@@ -32,17 +32,13 @@ for depth in puzzle_input:
 print(f"answer = {count}")
 
 previous = sum(puzzle_input[0:3])
-first = puzzle_input[0]
-
 count = 0
 
 for i, depth in enumerate(puzzle_input[3:]):
-    now = previous - first + depth
-    if now > previous:
+    score = previous - puzzle_input[i] + depth
+    if score > previous:
         count += 1
-    previous = now
-    first = puzzle_input[i+1]
-
+    previous = score
 
 # Part 2 = 1728
 print(f"answer = {count}")
