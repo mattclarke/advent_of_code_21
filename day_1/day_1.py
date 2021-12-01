@@ -37,17 +37,13 @@ previous = None
 count = 0
 
 for depth in puzzle_input[3:]:
+    prev = sum(window)
+    now = prev - window[0] + depth
+    if now > prev:
+        count += 1
     window.pop(0)
     window.append(depth)
-    scores.append(sum(window))
 
-for score in scores:
-    if previous is None:
-        previous = score
-        continue
-    if score > previous:
-        count += 1
-    previous = score
 
 # Part 2 = 1728
 print(f"answer = {count}")
