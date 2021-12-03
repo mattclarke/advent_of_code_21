@@ -9,3 +9,6 @@ Can we do it without popping and appending? Yes - using a sliding score.
 
 ## Day 2
 - Part 1 & 2: basic string parsing and maths.
+
+## Day 3
+- Part 1 & 2: binary and looping.
