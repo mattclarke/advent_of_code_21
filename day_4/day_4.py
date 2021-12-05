@@ -26,7 +26,6 @@ with open("input.txt") as f:
 # """
 
 puzzle_input = [x for x in PUZZLE_INPUT.strip().split("\n") if x]
-print(puzzle_input)
 
 numbers_called = [int(x) for x in puzzle_input.pop(0).split(",")]
 print(numbers_called)
@@ -41,7 +40,7 @@ for i, line in enumerate(puzzle_input):
         board = []
 
     nums = [int(x) for x in line.replace("  ", " ").strip().split(" ")]
-    board.append(nums)
+    board.extend(nums)
 boards.append(board)
 
 print(boards)
@@ -51,20 +50,24 @@ marked_boards = copy(boards)
 def do_game(marked_boards, numbers_called):
     for n in numbers_called:
         for b in marked_boards:
-            for y in range(5):
+            if n in b:
+                b[b.index(n)] = "X"
+            else:
+                continue
+            winner = True
+            for i, x in enumerate(b):
+                if i % 5 == 0 and i != 0:
+                    if winner:
+                        break
+                    winner = True
+                if x != "X":
+                    winner = False
+            if winner:
+                return b, n
+            for i in range(5):
                 all_x = True
-                for x in range(5):
-                    if b[y][x] == n:
-                        b[y][x] = "X"
-                    elif b[y][x] != "X":
-                        all_x = False
-                if all_x:
-                    return b, n
-            # Check columns
-            for x in range(5):
-                all_x = True
-                for y in range(5):
-                    if b[y][x] != "X":
+                for j in range(5):
+                    if b[i + 5 * j] != "X":
                         all_x = False
                 if all_x:
                     return b, n
@@ -72,15 +75,13 @@ def do_game(marked_boards, numbers_called):
 
 
 winner, num = do_game(marked_boards, numbers_called)
-print(winner, num)
 
 
 def total_up(board):
     total = 0
-    for y in range(5):
-        for x in range(5):
-            if board[y][x] != "X":
-                total += board[y][x]
+    for x in board:
+        if x != "X":
+            total += x
     return total
 
 
@@ -90,39 +91,46 @@ print(f"answer = {total_up(winner) * num}")
 
 def do_game_2(marked_boards, numbers_called):
     boards_remaining = {x for x in range(len(marked_boards))}
+    removed = []
 
     for n in numbers_called:
-        for i, b in enumerate(marked_boards):
-            if i not in boards_remaining:
+        for bn, b in enumerate(marked_boards):
+            if bn not in boards_remaining:
                 continue
-            for y in range(5):
+            if n in b:
+                b[b.index(n)] = "X"
+            else:
+                continue
+            winner = True
+            for i, x in enumerate(b):
+                if i % 5 == 0 and i != 0:
+                    if winner:
+                        break
+                    winner = True
+                if x != "X":
+                    winner = False
+            if winner and bn in boards_remaining:
+                if len(boards_remaining) == 1:
+                    return b, n
+                boards_remaining.remove(bn)
+                removed.append(bn)
+
+            for i in range(5):
                 all_x = True
-                for x in range(5):
-                    if b[y][x] == n:
-                        b[y][x] = "X"
-                    elif b[y][x] != "X":
+                for j in range(5):
+                    if b[i + 5 * j] != "X":
                         all_x = False
-                if all_x:
+                if all_x and bn in boards_remaining:
                     if len(boards_remaining) == 1:
                         return b, n
-                    boards_remaining.remove(i)
-            # Check columns
-            for x in range(5):
-                all_x = True
-                for y in range(5):
-                    if b[y][x] != "X":
-                        all_x = False
-                if all_x:
-                    if len(boards_remaining) == 1:
-                        return b, n
-                    if i in boards_remaining:
-                        boards_remaining.remove(i)
+                    removed.append(bn)
+                    boards_remaining.remove(bn)
+                    break
     raise RuntimeError("No winner")
 
 
 marked_boards = copy(boards)
 loser, num = do_game_2(marked_boards, numbers_called)
-print(loser, num)
 
 
 # Part 2 = 12635
