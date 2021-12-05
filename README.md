@@ -12,3 +12,7 @@ Can we do it without popping and appending? Yes - using a sliding score.
 
 ## Day 3
 - Part 1 & 2: binary and looping.
+
+## Day 4
+- Part 1 & 2: creating the bingo boards then looping over the numbers called then checking for a winner.
+Could we reduce the amount of looping? Perhaps a 1D array?
