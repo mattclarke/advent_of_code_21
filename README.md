@@ -20,3 +20,8 @@ Could we reduce the amount of looping? Perhaps a 1D array? Yes, better but still
 ## Day 5
 - Part 1: simple.
 - Part 2: Took me a bit of time to get the diagonals correct.
+
+## Day 6
+- Part 1: as the number of days is low, we can just add a fish to the list for each one born.
+- Part 2: because the number of fish increases exponentially we need to be a bit cleverer: we track the number of fish
+born on a day rather than each individual fish.
