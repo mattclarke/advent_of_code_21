@@ -25,3 +25,8 @@ Could we reduce the amount of looping? Perhaps a 1D array? Yes, better but still
 - Part 1: as the number of days is low, we can just add a fish to the list for each one born.
 - Part 2: because the number of fish increases exponentially we need to be a bit cleverer: we track the number of fish
 born on a day rather than each individual fish.
+
+## Day 7
+- Part 1: loop over all the possible positions and find the best one.
+- Part 2: need to find the sigma of the difference, first version used recursion and memoisation to find sigma. While
+looking up the name "sigma" found the formula for it: (x*x + x)/2 which is a bit simpler!
