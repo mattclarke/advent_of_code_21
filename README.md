@@ -38,3 +38,8 @@ not required. Instead we only need to know the "ab" is 1, we don't need to know 
 out 1, 4, 7, 8 because they each have a unique number of segments. The others can be determined by their segment count
 and the number of intersection they have with 1 and 4. E.g. "6" has 6 segments but only has one intersection with "1"
 while "0" and "9" have two intersections with "1" but "9" has more intersections with "4" than "0" does.
+
+## Day 9
+- Part 1: loop over all the positions to find lows.
+- Part 2: from each low effectively do a BFS until we reach all points reachable that are less than 9, count the points.
+Sort to find the three biggests counts then multiple.

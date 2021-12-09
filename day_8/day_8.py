@@ -93,15 +93,12 @@ def solve(line):
             inter_4 = mapping[4].intersection(f)
             if len(inter_1) == 1:
                 # 6
-                mapping[6] = f
                 reverse_mapping[s] = 6
             elif len(inter_4) == 4:
                 # 9
-                mapping[9] = f
                 reverse_mapping[s] = 9
             else:
                 # 0
-                mapping[0] = f
                 reverse_mapping[s] = 0
         elif len(f) == 5:
             # 2, 3 or 5
@@ -109,15 +106,12 @@ def solve(line):
             inter_4 = mapping[4].intersection(f)
             if len(inter_1) == 2:
                 # 3
-                mapping[3] = f
                 reverse_mapping[s] = 3
             elif len(inter_4) == 3:
                 # 5
-                mapping[5] = f
                 reverse_mapping[s] = 5
             else:
                 # 2
-                mapping[2] = f
                 reverse_mapping[s] = 2
 
     sorted_back = []
