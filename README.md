@@ -43,3 +43,9 @@ while "0" and "9" have two intersections with "1" but "9" has more intersections
 - Part 1: loop over all the positions to find lows.
 - Part 2: from each low effectively do a BFS until we reach all points reachable that are less than 9, count the points.
 Sort to find the three biggests counts then multiple.
+
+## Day 10
+- Part 1: use a stack, for opening brackets push and for closing brackets pop. If the popped value doesn't pair with the
+closing bracket then it is illegal.
+- Part 2: Remove the illegal ones. Repeat the stack building for the others, anything left in the stack at the end is
+unpaired, so do the maths bit.
