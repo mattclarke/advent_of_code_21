@@ -49,3 +49,9 @@ Sort to find the three biggests counts then multiple.
 closing bracket then it is illegal.
 - Part 2: Remove the illegal ones. Repeat the stack building for the others, anything left in the stack at the end is
 unpaired, so do the maths bit.
+
+## Day 11
+- Part 1: didn't read the instructions very well. Loop through all positions and add 1, queue up if greater than 9.
+Go through the queue and add 1 to all the neighbours, if the neighbour exceeds 9 then add to queue (only if it hasn't
+been added before - can only flash once). Finally set all the ones that flashed to zero.
+- Part 2: Extend part 1 slightly to find the point where they all flash at once.
