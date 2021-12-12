@@ -55,3 +55,8 @@ unpaired, so do the maths bit.
 Go through the queue and add 1 to all the neighbours, if the neighbour exceeds 9 then add to queue (only if it hasn't
 been added before - can only flash once). Finally set all the ones that flashed to zero.
 - Part 2: Extend part 1 slightly to find the point where they all flash at once.
+
+## Day 12
+- Part 1: DFS but stop if we visit a small cave twice.
+- Part 2: Same but allowed to visit one and only one small cave twice. Just needed an extra flag to indicate that we
+have visited a small cave twice.
