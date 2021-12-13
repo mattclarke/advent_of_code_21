@@ -60,3 +60,7 @@ been added before - can only flash once). Finally set all the ones that flashed 
 - Part 1: DFS but stop if we visit a small cave twice.
 - Part 2: Same but allowed to visit one and only one small cave twice. Just needed an extra flag to indicate that we
 have visited a small cave twice.
+
+## Day 13
+- Part 1: Simple maths to calculate the reflection. Used a set to save worrying about overlapping points.
+- Part 2: run until done, then read the answer formed by the points.
