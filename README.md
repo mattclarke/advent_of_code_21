@@ -58,9 +58,16 @@ been added before - can only flash once). Finally set all the ones that flashed 
 
 ## Day 12
 - Part 1: DFS but stop if we visit a small cave twice.
-- Part 2: Same but allowed to visit one and only one small cave twice. Just needed an extra flag to indicate that we
+- Part 2: same but allowed to visit one and only one small cave twice. Just needed an extra flag to indicate that we
 have visited a small cave twice.
 
 ## Day 13
-- Part 1: Simple maths to calculate the reflection. Used a set to save worrying about overlapping points.
+- Part 1: simple maths to calculate the reflection. Used a set to save worrying about overlapping points.
 - Part 2: run until done, then read the answer formed by the points.
+
+## Day 14
+- Part 1: simple enough, can be done via brute force by building up the polymer.
+- Part 2: takes forever to do via brute force. First attempt was to change to a linked list but that still took forever.
+A couple of hours later it occurred to me that we only need to keep count of the number of pairs, so it basically works
+like this: if we have 10 ABs then that gives us 10 more ACs and CBs (assuming formula is AB -> C), but gives us 10 fewer
+ABs and so on.
