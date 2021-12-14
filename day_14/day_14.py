@@ -1,5 +1,4 @@
-import copy
-from collections import Counter, defaultdict
+from collections import Counter
 
 with open("input.txt") as f:
     PUZZLE_INPUT = f.read()
@@ -39,70 +38,58 @@ for i in range(1, len(puzzle_input)):
 
 
 def solve(counter):
-    result = copy.deepcopy(counter)
+    new_counter = Counter()
     for n, v in counter.items():
         if v == 0:
             continue
         new_elem = FORMULAS[n]
-        result[n[0] + new_elem] += v
-        result[new_elem + n[1]] += v
-        result[n] -= v
-    return result
+        new_counter[n[0] + new_elem] += v
+        new_counter[new_elem + n[1]] += v
+    return new_counter
 
 
 def get_element_count(counter):
-    counts = {}
+    element_counter = Counter()
 
     for n, v in counter.items():
         # Avoid double counting by only counting the first in a pair
         p1 = n[0]
-        p1c = counts.get(p1, 0)
-        counts[p1] = p1c + v
+        element_counter[p1] += v
 
     # Last element needs to be increased by one manually
-    counts[START[~0]] += 1
-    return counts
-
-
-def find_max_min(counts):
-    least = 10000000000000000000000000
-    most = 0
-
-    for v in counts.values():
-        least = min(least, v)
-        most = max(most, v)
-    return least, most
+    element_counter[START[~0]] += 1
+    return element_counter
 
 
 # Create initial pairs
-polymer_pairs_count = defaultdict(lambda: 0)
+polymer_pairs_count = Counter()
 for i in range(len(START) - 1):
     pair = START[i : i + 2]
     polymer_pairs_count[pair] += 1
 
 # Solve
-for i in range(10):
+for _ in range(10):
     polymer_pairs_count = solve(polymer_pairs_count)
 
-counts = get_element_count(polymer_pairs_count)
-least, most = find_max_min(counts)
+elem_counts = get_element_count(polymer_pairs_count)
+least, most = min(elem_counts.values()), max(elem_counts.values())
 
 
 # Part 1 = 2891
 print(f"answer = {most-least}")
 
 # Create initial pairs
-polymer_pairs_count = defaultdict(lambda: 0)
+polymer_pairs_count = Counter()
 for i in range(len(START) - 1):
     pair = START[i : i + 2]
     polymer_pairs_count[pair] += 1
 
 # Solve
-for i in range(40):
+for _ in range(40):
     polymer_pairs_count = solve(polymer_pairs_count)
 
-counts = get_element_count(polymer_pairs_count)
-least, most = find_max_min(counts)
+elem_counts = get_element_count(polymer_pairs_count)
+least, most = min(elem_counts.values()), max(elem_counts.values())
 
 # Part 2 = 4607749009683
 print(f"answer = {most-least}")
