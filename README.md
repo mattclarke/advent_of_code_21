@@ -74,5 +74,6 @@ ABs and so on.
 
 ## Day 15:
 - Part 1: used BFS with heap but took me ages to get something quick.
-- Part 2: just extended it to be five times the size and added a helper method to calculate the risk. Takes 10 minutes
-to complete with pypy :( will try again later.
+- Part 2: just extended it to be five times the size and added a helper method to calculate the risk. Initial version
+took 10 minutes to complete with pypy, but re-write takes a couple of seconds. The mistake I initially made was to use
+the distance from the target as the heap priority, much better to use the distance so far.
