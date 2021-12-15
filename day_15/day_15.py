@@ -1,5 +1,6 @@
 import copy
 import heapq
+from collections import defaultdict
 
 with open("input.txt") as f:
     PUZZLE_INPUT = f.read()
@@ -32,28 +33,17 @@ CNUM = len(puzzle_input[0])
 start = (0, 0)
 
 heap = [(RNUM + CNUM, 0, start)]
-best = {
-    (0,0): 0
-}
+best = defaultdict(lambda: 1000000000)
 
-row = 0
-for r in range(0,RNUM):
-    for c in range(0, CNUM):
-        if (r,c) == (0, 0):
-            continue
-        if c == 0:
-            best[(r, c)] = best[(r-1, 0)] + puzzle_input[r][c]
-        else:
-            best[(r, c)] = best[(r, c-1)] + puzzle_input[r][c]
+best[(0,0)] = 0
 
 
 minimum = best[(RNUM-1, CNUM-1)]
 
 while heap:
     _, total, pos = heapq.heappop(heap)
-    if pos in best and best[pos] < total:
+    if best[pos] < total:
         continue
-    best[pos] = total
 
     if total > minimum:
         continue
@@ -69,7 +59,8 @@ while heap:
         if 0 <= newr < RNUM and 0 <= newc < CNUM:
             risk = puzzle_input[newr][newc]
             dist = RNUM - newr + CNUM - newc
-            if total + risk <= best.get((newr, newc), 1000000000000) and total < minimum:
+            if total + risk < best[(newr, newc)] and total+ risk < minimum:
+                best[(newr, newc)] = total + risk
                 heapq.heappush(heap, (dist, total + risk, (newr, newc)))
 
 print(minimum)
