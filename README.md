@@ -71,3 +71,8 @@ have visited a small cave twice.
 A couple of hours later it occurred to me that we only need to keep count of the number of pairs, so it basically works
 like this: if we have 10 ABs then that gives us 10 more ACs and CBs (assuming formula is AB -> C), but gives us 10 fewer
 ABs and so on.
+
+## Day 15:
+- Part 1: used BFS with heap but took me ages to get something quick.
+- Part 2: just extended it to be five times the size and added a helper method to calculate the risk. Takes 10 minutes
+to complete with pypy :( will try again later.
