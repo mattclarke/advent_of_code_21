@@ -1,6 +1,5 @@
-import copy
 import heapq
-from collections import defaultdict, deque
+from collections import defaultdict
 
 with open("input.txt") as f:
     PUZZLE_INPUT = f.read()

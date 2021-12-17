@@ -82,3 +82,8 @@ the distance from the target as the heap priority, much better to use the distan
 - Part 1: took me a while to fully understand what was meant by "total length in bits" and what to do with it. Otherwise,
 it is just parsing the packet.
 - Part 2: just add in the maths parts, pretty straightforward once part 1 is done.
+
+## Day 17:
+- Part 1: over complicated it at first; can use brute force.
+- Part 2: small modification to track unique velocities.
+TODO: do it without random fudge factors.
