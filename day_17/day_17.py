@@ -57,8 +57,11 @@ vy = tymin
 best = 0
 solutions = set()
 
-# Magic number!
-while vy <= 88:
+# What goes up must come down! On the way back down the probe always hits y = 0.
+# The speed at y = 0 on the way down is the same as the initial speed.
+# If that speed is greater than the depth of the target then we have the upper
+# bound of speeds that can hit the target.
+while vy < -tymin:
     was_hit = False
     for vx in range(1, txmax + 1):
         hit, maxy = solve(vx, vy)

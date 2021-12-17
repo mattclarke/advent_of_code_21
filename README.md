@@ -73,7 +73,7 @@ like this: if we have 10 ABs then that gives us 10 more ACs and CBs (assuming fo
 ABs and so on.
 
 ## Day 15:
-- Part 1: used Dijkstra's algorithm but took me ages to get something quick.
+- Part 1: used Dijkstra's algorithm (or is it A*?) but took me ages to get something quick.
 - Part 2: just extended it to be five times the size and added a helper method to calculate the risk. Initial version
 took 10 minutes to complete with pypy, but re-write takes a couple of seconds. The mistake I initially made was to use
 the distance from the target as the heap priority, much better to use the distance so far.
@@ -84,6 +84,5 @@ it is just parsing the packet.
 - Part 2: just add in the maths parts, pretty straightforward once part 1 is done.
 
 ## Day 17:
-- Part 1: over complicated it at first; can use brute force.
+- Part 1: over complicated it at first; can be done quickly via brute force.
 - Part 2: small modification to track unique velocities.
-TODO: do it without random fudge factors.
