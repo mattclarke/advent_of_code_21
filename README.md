@@ -86,3 +86,9 @@ it is just parsing the packet.
 ## Day 17:
 - Part 1: over complicated it at first; can be done quickly via brute force.
 - Part 2: small modification to track unique velocities.
+
+## Day 18:
+- Part 1: turn the string into a tree and then use various different recursions to explode and split then do the
+calculation.
+- Part 2: just some extra loops to check all the combinations to find the maximum.
+# TODO: perhaps revisit to see if can be tidied up. E.g. the explode function is a bit complicated.
