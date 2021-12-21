@@ -118,3 +118,10 @@ Odd turn             Even turn
 #########            .........
 ```
 - Part 2: simple once part 1 is done.
+
+## Day 21:
+- Part 1: simple looping just to get an idea of the game for part 2.
+- Part 2: dynamic programming with recursion on each dice roll. Use caching to avoid it taking the rest of time to finish (only takes a few
+seconds to complete).
+
+UPDATED: no longer recurse on each roll as it is only necessary to recurse on the third roll.
