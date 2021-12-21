@@ -92,3 +92,11 @@ it is just parsing the packet.
 calculation.
 - Part 2: just some extra loops to check all the combinations to find the maximum.
 # TODO: perhaps revisit to see if can be tidied up. E.g. the explode function is a bit complicated.
+
+## Day 19:
+- Part 1: assume scanner 0 is at (0, 0, 0), go through the other scanners one at a time and for each beacon align it with
+one of scanner 0's beacons and then see if 12 or more, now offset, beacons overlap and if so add the non-overlapping
+beacons to the beacons in scanner 0, if not then try a different orientation. Repeat until all scanners have overlapped.
+Takes ~45 seconds with pypy - the orientation changes could be sped up for some gain, but at the moment cannot think of
+a quicker solution.
+- Part 2: simple. Keep the scanner offsets from part 1 and use them to calculate the Manhattan distances.
