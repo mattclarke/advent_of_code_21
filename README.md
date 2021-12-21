@@ -100,3 +100,21 @@ beacons to the beacons in scanner 0, if not then try a different orientation. Re
 Takes ~45 seconds with pypy - the orientation changes could be sped up for some gain, but at the moment cannot think of
 a quicker solution.
 - Part 2: simple. Keep the scanner offsets from part 1 and use them to calculate the Manhattan distances.
+
+## Day 20:
+- Part 1: like Conway's GoL with 8 neighbours but every other turn the squares outside our puzzle input switch from all
+on to all off. This means we need to treat the edges differently each turn.
+```
+? = our puzzle surrounded by infinity
+# = light on
+. = light off
+
+Odd turn             Even turn
+#########            .........
+##?????##            ..?????..
+##?????##            ..?????..
+##?????##            ..?????..
+##?????##            ..?????..
+#########            .........
+```
+- Part 2: simple once part 1 is done.
