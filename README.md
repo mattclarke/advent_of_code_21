@@ -125,3 +125,18 @@ Odd turn             Even turn
 seconds to complete).
 
 UPDATED: no longer recurse on each roll as it is only necessary to recurse on the third roll.
+
+## Day 22:
+- Part 1: brute force looping
+- Part 2: WIP = loop over cubes and check each point?
+
+## Day 23:
+- Part 1: recursion to try all the possible moves (~100 seconds with pypy)
+- Part 2: same but extended for extra "home" spaces and more "pieces" (~22s with pypy)
+
+First part is slow - is there a way to prune the possible moves or is there a more optimal approach generally?
+According to the internet DP makes a lot of difference.
+
+## Day 24:
+- Part 1: Brute force recursion with DP for a significant speed-up but still very very slow (~15-20 minutes).
+- Part 2: Same but as it starts closer to the value it doesn't take so long.
