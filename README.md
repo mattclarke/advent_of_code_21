@@ -121,8 +121,8 @@ Odd turn             Even turn
 
 ## Day 21:
 - Part 1: simple looping just to get an idea of the game for part 2.
-- Part 2: dynamic programming with recursion on each dice roll. Use caching to avoid it taking the rest of time to finish (only takes a few
-seconds to complete).
+- Part 2: dynamic programming with recursion on each dice roll. Use caching to avoid it taking the rest of time to finish
+(only takes a few seconds to complete).
 
 UPDATED: no longer recurse on each roll as it is only necessary to recurse on the third roll.
 
@@ -138,5 +138,11 @@ First part is slow - is there a way to prune the possible moves or is there a mo
 According to the internet DP makes a lot of difference.
 
 ## Day 24:
-- Part 1: Brute force recursion with DP for a significant speed-up but still very very slow (~15-20 minutes).
-- Part 2: Same but as it starts closer to the value it doesn't take so long.
+- Part 1: brute force recursion with DP for a significant speed-up but still very very slow (~15-20 minutes).
+- Part 2: same but as it starts closer to the value it doesn't take so long.
+
+How difficult is it to change each sub-program into code? E.g. first program is effectively `z = w + 7`
+
+## Day 25:
+- Part 1: simple looping over positions to do moves. Sets make it simple, just need to process the east facing ones first.
+- Part 2: no part 2 as usual!
