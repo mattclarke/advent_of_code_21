@@ -128,7 +128,10 @@ UPDATED: no longer recurse on each roll as it is only necessary to recurse on th
 
 ## Day 22:
 - Part 1: brute force looping
-- Part 2: WIP = loop over cubes and check each point?
+- Part 2: got stuck, so looked on the web - turns out to be relatively simple. Solution is to construct a list of "ons"
+and "offs". For each cube in the input (A), compare it to the cubes already in the list if they overlap then add the overlap
+to the list and mark it as "off" if the cube in the list was "on" and vice versa. If A was "on" then add it to the list.
+Finally tally up the volume by adding the "on" cubes and subtracting for the "off" cubes.
 
 ## Day 23:
 - Part 1: recursion to try all the possible moves (~100 seconds with pypy)
