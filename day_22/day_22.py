@@ -69,13 +69,6 @@ puzzle_input = [x for x in PUZZLE_INPUT.strip().split("\n")]
 cubes_1 = []
 cubes_2 = []
 
-XMIN = 0
-XMAX = 0
-YMIN = 0
-YMAX = 0
-ZMIN = 0
-ZMAX = 0
-
 for line in puzzle_input:
     on = False
     if line.startswith("on"):
@@ -91,12 +84,6 @@ for line in puzzle_input:
     xmin, xmax = [int(x) for x in x_str.split("..")]
     ymin, ymax = [int(y) for y in y_str.split("..")]
     zmin, zmax = [int(z) for z in z_str.split("..")]
-    XMAX = max(xmax, XMAX)
-    XMIN = min(xmin, XMIN)
-    YMAX = max(ymax, YMAX)
-    YMIN = min(ymin, YMIN)
-    ZMAX = max(zmax, ZMAX)
-    ZMIN = min(zmin, ZMIN)
     if (
         xmin <= 50
         and xmax >= -50
@@ -111,28 +98,27 @@ for line in puzzle_input:
         cubes_2.append(((xmin, xmax, ymin, ymax, zmin, zmax), on))
 
 
-XMIN = -50
-XMAX = 50
-YMIN = -50
-YMAX = 50
-ZMIN = -50
-ZMAX = 50
-
-total_on = 0
-
-for x in range(-50, 50 + 1):
-    for y in range(-50, 50 + 1):
-        for z in range(-50, 50 + 1):
-            is_on = False
-            for cube, on in cubes_1:
-                xmin, xmax, ymin, ymax, zmin, zmax = cube
-                if xmin <= x <= xmax and ymin <= y <= ymax and zmin <= z <= zmax:
-                    is_on = on
-            if is_on:
-                total_on += 1
+total_1 = 0
+for i, pair in enumerate(cubes_1):
+    cube, on = pair
+    if not on:
+        continue
+    xmin, xmax, ymin, ymax, zmin, zmax = cube
+    for x in range(xmin, xmax+1):
+        for y in range(ymin, ymax+1):
+            for z in range(zmin, zmax+1):
+                is_okay = True
+                for j, pair2 in enumerate(cubes_1[i+1:]):
+                    cube2, _ = pair2
+                    xmin2, xmax2, ymin2, ymax2, zmin2, zmax2 = cube2
+                    if xmin2 <= x <= xmax2 and ymin2 <= y <= ymax2 and zmin2 <= z <= zmax2:
+                        is_okay = False
+                        break
+                if is_okay:
+                    total_1 += 1
 
 # Part 1 = 564654
-print(f"answer = {total_on}")
+print(f"answer = {total_1}")
 
 # Part 2 =
 # print(f"answer = {count}")
