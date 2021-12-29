@@ -140,6 +140,9 @@ Finally tally up the volume by adding the "on" cubes and subtracting for the "of
 First part is slow - is there a way to prune the possible moves or is there a more optimal approach generally?
 According to the internet DP makes a lot of difference.
 
+Update: Not in the position to do proper DP without a major rewrite but by caching (board, score) we can avoid repeating
+the same positions which brings the whole thing down to ~10s with pypy.
+
 ## Day 24:
 - Part 1: brute force recursion with DP for a significant speed-up but still very very slow (~15-20 minutes).
 - Part 2: same but as it starts closer to the value it doesn't take so long.

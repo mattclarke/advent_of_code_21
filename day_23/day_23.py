@@ -19,11 +19,11 @@ puzzle_input_2 = [
 
 
 # REAL
-# puzzle_input = [
-#     [".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
-#     ["#", "#", "D", "#", "D", "#", "C", "#", "C", "#", "#"],
-#     ["#", "#", "B", "#", "A", "#", "B", "#", "A", "#", "#"],
-# ]
+puzzle_input = [
+    [".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+    ["#", "#", "D", "#", "D", "#", "C", "#", "C", "#", "#"],
+    ["#", "#", "B", "#", "A", "#", "B", "#", "A", "#", "#"],
+]
 
 
 puzzle_input_2 = [
@@ -183,6 +183,7 @@ def is_done(board):
     return True
 
 
+DP = set()
 best = 1000000000000000000
 
 
@@ -199,7 +200,6 @@ def solve(board):
 
         if done:
             best = min(best, score)
-            print(f"winner {score}, {best}")
             return
 
         moveable = can_move(board)
@@ -214,14 +214,20 @@ def solve(board):
                 steps = abs(pos[1] - o[1])
                 steps += pos[0]
                 steps += o[0]
-                _recurse(new_board, score + steps * COSTS[ch])
+                as_tuple = tuple([tuple([x for x in y]) for y in new_board])
+                new_score = score + steps * COSTS[ch]
+                if (as_tuple, new_score) in DP:
+                    continue
+                DP.add((as_tuple, new_score))
+
+                _recurse(new_board, new_score)
 
     _recurse(board, 0)
     return best
 
 
 # Part 1 = 16059
-# print(f"answer = {solve(copy.deepcopy(puzzle_input))}")
+print(f"answer = {solve(copy.deepcopy(puzzle_input))}")
 
 
 # Part 2 = 43117
