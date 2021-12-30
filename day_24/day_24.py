@@ -2,7 +2,6 @@ with open("input.txt") as f:
     PUZZLE_INPUT = f.read()
 
 puzzle_input = [x for x in PUZZLE_INPUT.strip().split("\n")]
-print(puzzle_input)
 
 
 def inp(value, a, sp, registers):
@@ -91,24 +90,27 @@ def run(instructions, z, input_):
     return registers["z"]
 
 
-DP = set()
+CACHE = set()
 
 
 def solve(instructions, lowest=False):
     def _recurse(instructions, zed, depth, path, inputs):
         if depth == 14:
-            print(path)
+            # print(path)
             if zed == 0:
                 return list(path)
             return []
+        if zed > 10**7:
+            return []
+
         commands = instructions[depth]
         for i in inputs:
             ans = run(commands, zed, i)
             new_path = list(path)
             new_path.append(i)
-            if (ans, depth) in DP:
+            if (ans, depth) in CACHE:
                 continue
-            DP.add((ans, depth))
+            CACHE.add((ans, depth))
             done = _recurse(instructions, ans, depth + 1, new_path, inputs)
             if done:
                 return done
@@ -139,7 +141,9 @@ if current:
     current = []
 
 # Part 1 = 29599469991739
-# print(f"answer = {solve(programs)}")
+print(f"answer = {solve(programs)}")
+
+CACHE.clear()
 
 # Part 2 = 17153114691118
 print(f"answer = {solve(programs, True)}")

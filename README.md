@@ -144,10 +144,14 @@ Update: Not in the position to do proper DP without a major rewrite but by cachi
 the same positions which brings the whole thing down to ~10s with pypy.
 
 ## Day 24:
-- Part 1: brute force recursion with DP for a significant speed-up but still very very slow (~15-20 minutes).
-- Part 2: same but as it starts closer to the value it doesn't take so long.
+- Part 1: brute force recursion with a cache for a significant speed-up but still very very slow (~15-20 minutes).
+- Part 2: same but as it starts closer to the value it doesn't take quite so long (~100s).
+
+Quitting if zed gets too big brings the whole thing down to ~22s. If zed is too big then it is impossible for it to get back
+to zero. The magic number was found by trial and error.
 
 How difficult is it to change each sub-program into code? E.g. first program is effectively `z = w + 7`
+Answer: simple.
 
 ## Day 25:
 - Part 1: simple looping over positions to do moves. Sets make it simple, just need to process the east facing ones first.
