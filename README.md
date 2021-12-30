@@ -153,6 +153,8 @@ to zero. The magic number was found by trial and error.
 How difficult is it to change each sub-program into code? E.g. first program is effectively `z = w + 7`
 Answer: simple.
 
+Can also be done by hand, see the code for a description.
+
 ## Day 25:
 - Part 1: simple looping over positions to do moves. Sets make it simple, just need to process the east facing ones first.
 - Part 2: no part 2 as usual!
