@@ -164,6 +164,9 @@ def is_zed_zero(W):
         x = zed % 26
         zed //= A[i]
         x += B[i]
+        # x should be 0 on a pop, it isn't then W is wrong somewhere.
+        # Seem likely that the mistake is on the first i where x isn't 0 or
+        # the corresponding push.
         x = 0 if x == w else 1
         zed *= 25 * x + 1
         zed += (w + C[i]) * x
@@ -180,11 +183,11 @@ def is_zed_zero(W):
     return zed == 0
 
 
-W = [2, 9, 5, 9, 9, 4, 6, 9, 9, 9, 1, 7, 3, 9]
-print(is_zed_zero(W))
-
-# W = [1, 7, 1, 5, 3, 1, 1, 4, 6, 9, 1, 1, 1, 8]
+# W = [2, 9, 5, 9, 9, 4, 6, 9, 9, 9, 1, 7, 3, 9]
 # print(is_zed_zero(W))
+
+W = [1, 7, 1, 5, 3, 1, 1, 4, 6, 9, 1, 1, 1, 8]
+print(is_zed_zero(W))
 
 # By hand
 
