@@ -91,7 +91,6 @@ it is just parsing the packet.
 - Part 1: turn the string into a tree and then use various different recursions to explode and split then do the
 calculation.
 - Part 2: just some extra loops to check all the combinations to find the maximum.
-TODO: perhaps revisit to see if can be tidied up. E.g. the explode function is a bit complicated.
 
 ## Day 19:
 - Part 1: assume scanner 0 is at (0, 0, 0), go through the other scanners one at a time and for each beacon align it with

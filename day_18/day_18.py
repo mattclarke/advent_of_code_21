@@ -17,16 +17,18 @@ with open("input.txt") as f:
 # """
 
 puzzle_input = [x for x in PUZZLE_INPUT.strip().split("\n")]
-print(puzzle_input)
 
 
-class Pair:
-    def __init__(self, left=None, right=None):
+class Node:
+    def __init__(self, left=None, right=None, value=None):
         self.left = left
         self.right = right
         self.parent = None
+        self.value = value
 
     def __repr__(self):
+        if self.value is not None:
+            return f"{self.value}"
         return f"[{self.left},{self.right}]"
 
 
@@ -37,10 +39,10 @@ def generate_pair(data):
         data = data[1:-1]
     if data.count("[") == 0:
         # Simple pair
-        left, right = [
+        vleft, vright = [
             int(x) for x in data.replace("[", "").replace("]", "").split(",")
         ]
-        return Pair(left, right)
+        return Node(Node(value=vleft), Node(value=vright))
     else:
         num_open = 0
         for i, ch in enumerate(data):
@@ -50,14 +52,15 @@ def generate_pair(data):
                 num_open -= 1
             if num_open == 0 and ch == ",":
                 break
-        # print(i)
         left = data[0:i]
         right = data[i + 1 :]
         if all([x.isdigit() for x in left]):
-            left = int(left)
+            vleft = int(left)
+            left = Node(value=vleft)
         if all([x.isdigit() for x in right]):
-            right = int(right)
-        return Pair(left, right)
+            vright = int(right)
+            right = Node(value=vright)
+        return Node(left, right)
 
 
 def generate_tree(data):
@@ -86,21 +89,24 @@ def explode(tree):
             exploder = node
             return left, exploder, right
         if node.left is not None:
-            if isinstance(node.left, int):
-                if not exploder:
-                    left = node
-                elif not right:
-                    right = node
+            if node.left.value is not None:
+                if exploder:
+                    right = node.left
+                else:
+                    left = node.left
             else:
                 left, exploder, right = _recurse(
                     node.left, depth + 1, left, exploder, right
                 )
+        if right:
+            # No point continuing
+            return left, exploder, right
         if node.right is not None:
-            if isinstance(node.right, int):
+            if node.right.value is not None:
                 if not exploder:
-                    left = node
+                    left = node.right
                 elif not right:
-                    right = node
+                    right = node.right
             else:
                 left, exploder, right = _recurse(
                     node.right, depth + 1, left, exploder, right
@@ -110,54 +116,31 @@ def explode(tree):
     left, exploder, right = _recurse(tree, 0)
     if not exploder:
         return False
-    # print(left, exploder, right)
-    if (
-        exploder.parent
-        and exploder.parent.right == exploder
-        and isinstance(exploder.parent.left, int)
-    ):
-        exploder.parent.left += exploder.left
-    elif exploder.parent and left == exploder.parent:
-        left.left += exploder.left
-    elif left:
-        if isinstance(left.right, int):
-            left.right += exploder.left
-        elif isinstance(left.left, int):
-            left.left += exploder.left
-        else:
-            assert False
-    if (
-        exploder.parent
-        and exploder.parent.left == exploder
-        and isinstance(exploder.parent.right, int)
-    ):
-        exploder.parent.right += exploder.right
-    elif exploder.parent and right == exploder.parent:
-        right.right += exploder.right
-    elif right:
-        if isinstance(right.left, int):
-            right.left += exploder.right
-        elif isinstance(right.right, int):
-            right.right += exploder.right
-        else:
-            assert False
-    if exploder.parent and exploder.parent.left == exploder:
-        exploder.parent.left = 0
-    elif exploder.parent and exploder.parent.right == exploder:
-        exploder.parent.right = 0
+
+    if left:
+        left.value += exploder.left.value
+
+    if right:
+        right.value += exploder.right.value
+
+    if exploder.parent.left == exploder:
+        exploder.parent.left = Node(value=0)
+    else:
+        exploder.parent.right = Node(value=0)
+
     return True
 
 
 def split(tree):
     def _recurse(node):
         if node.left:
-            if isinstance(node.left, int):
-                if node.left > 9:
-                    left = node.left // 2
-                    right = node.left // 2
-                    if node.left % 2 == 1:
-                        right += 1
-                    node.left = Pair(left, right)
+            if node.left.value is not None:
+                if node.left.value > 9:
+                    value = node.left.value
+                    left = value // 2
+                    right = value // 2 + value % 2
+
+                    node.left = Node(Node(value=left), Node(value=right))
                     node.left.parent = node
                     return True
             else:
@@ -165,13 +148,13 @@ def split(tree):
                 if done:
                     return True
         if node.right:
-            if isinstance(node.right, int):
-                if node.right > 9:
-                    left = node.right // 2
-                    right = node.right // 2
-                    if node.right % 2 == 1:
-                        right += 1
-                    node.right = Pair(left, right)
+            if node.right.value is not None:
+                if node.right.value > 9:
+                    value = node.right.value
+                    left = value // 2
+                    right = value // 2 + value % 2
+
+                    node.right = Node(Node(value=left), Node(value=right))
                     node.right.parent = node
                     return True
             else:
@@ -185,13 +168,13 @@ def split(tree):
 def calculate(tree):
     def _recurse(node):
         if node.left is not None:
-            if isinstance(node.left, int):
-                left = node.left
+            if node.left.value is not None:
+                left = node.left.value
             else:
                 left = _recurse(node.left)
         if node.right is not None:
-            if isinstance(node.right, int):
-                right = node.right
+            if node.right.value is not None:
+                right = node.right.value
             else:
                 right = _recurse(node.right)
         return 3 * left + 2 * right
@@ -220,7 +203,7 @@ for line in puzzle_input:
         continue
 
     addition = generate_tree(line)
-    new_top = Pair(top, addition)
+    new_top = Node(top, addition)
     top.parent = new_top
     addition.parent = new_top
     top = new_top
@@ -240,7 +223,7 @@ for k1 in trees.keys():
     for k2 in trees.keys():
         if k1 == k2:
             continue
-        top = Pair(copy.deepcopy(base), copy.deepcopy(trees[k2]))
+        top = Node(copy.deepcopy(base), copy.deepcopy(trees[k2]))
         top.left.parent = top
         top.right.parent = top
         top = reduce(top)
